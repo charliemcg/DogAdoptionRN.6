@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignIn snapShot 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    Array [
+      Object {
+        "flex": 3,
+      },
+      Object {
+        "paddingBottom": 0,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "width": 750,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#ffd54f",
+          "borderBottomStyle": "solid",
+          "borderBottomWidth": 2,
+          "flexDirection": "row",
+          "height": 75,
+          "justifyContent": "center",
+          "width": 375,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "#ffd54f",
+              "fontSize": 30,
+            },
+            Object {
+              "flex": 1,
+            },
+            Object {
+              "fontFamily": "FontAwesome5Free-Regular",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {
+              "fontWeight": "400",
+            },
+          ]
+        }
+      >
+        
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        placeholder="Email"
+        rejectResponderTermination={true}
+        style={
+          Object {
+            "flex": 5,
+            "fontSize": 18,
+            "height": "100%",
+          }
+        }
+        textContentType="username"
+        underlineColorAndroid="transparent"
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "width": 750,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#ffd54f",
+          "borderBottomStyle": "solid",
+          "borderBottomWidth": 2,
+          "flexDirection": "row",
+          "height": 75,
+          "justifyContent": "center",
+          "width": 375,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "#ffd54f",
+              "fontSize": 30,
+            },
+            Object {
+              "flex": 1,
+            },
+            Object {
+              "fontFamily": "Material Design Icons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        placeholder="Password"
+        rejectResponderTermination={true}
+        secureTextEntry={true}
+        style={
+          Object {
+            "flex": 5,
+            "fontSize": 18,
+            "height": "100%",
+          }
+        }
+        textContentType="password"
+        underlineColorAndroid="transparent"
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "width": 750,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#ffd54f",
+          "borderRadius": 10,
+          "height": 75,
+          "justifyContent": "center",
+          "width": 249.75,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#37474f",
+            "fontSize": 20,
+          }
+        }
+      >
+        Sign In
+      </Text>
+    </View>
+  </View>
+</View>
+`;

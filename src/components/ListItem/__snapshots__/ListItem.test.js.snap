@@ -1,0 +1,242 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItem snapShot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#eee",
+      "height": 365.625,
+      "width": 750,
+    }
+  }
+>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "height": "100%",
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "height": 365.625,
+            "marginBottom": "2%",
+            "marginLeft": "2%",
+            "marginTop": "2%",
+            "width": 487.5,
+          }
+        }
+      >
+        <Image
+          blurRadius={20}
+          source={
+            Object {
+              "uri": undefined,
+            }
+          }
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
+        />
+        <Image
+          resizeMode="contain"
+          source={
+            Object {
+              "uri": undefined,
+            }
+          }
+          style={
+            Object {
+              "flex": 1,
+              "height": "100%",
+              "position": "absolute",
+              "width": "100%",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "height": 37.5,
+              "position": "absolute",
+              "right": "3%",
+              "top": "5%",
+              "width": 37.5,
+            }
+          }
+        >
+          <Image
+            accessible={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={
+              Object {
+                "testUri": "../../../src/images/heart.png",
+              }
+            }
+            style={
+              Object {
+                "height": "100%",
+                "width": "100%",
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "marginTop": "2%",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "height": "10%",
+              "marginTop": "2%",
+              "width": 262.5,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "flex": 1,
+                "paddingLeft": "10%",
+              }
+            }
+          >
+            Location:
+             
+          </Text>
+          <View
+            style={
+              Object {
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "paddingRight": "10%",
+                "textAlign": "right",
+              }
+            }
+          >
+            <Text>
+              Price:
+               
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#c8a415",
+                  "fontWeight": "bold",
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "height": "10%",
+              "marginTop": "2%",
+              "width": 262.5,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "paddingLeft": "10%",
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "paddingRight": "10%",
+                "textAlign": "right",
+              }
+            }
+          >
+            NaN/NaN/NaN
+          </Text>
+        </View>
+        <Text
+          style={
+            Object {
+              "height": 450,
+              "paddingTop": "2%",
+              "width": 225,
+            }
+          }
+        />
+        <BVLinearGradient
+          colors={
+            Array [
+              15658734,
+              3438210798,
+              4293848814,
+            ]
+          }
+          endPoint={
+            Object {
+              "x": 0.5,
+              "y": 1,
+            }
+          }
+          locations={null}
+          startPoint={
+            Object {
+              "x": 0.5,
+              "y": 0,
+            }
+          }
+          style={
+            Object {
+              "height": "100%",
+              "position": "absolute",
+              "right": 0,
+              "width": 262.5,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;

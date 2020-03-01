@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MiniListItem snapShot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "height": 240,
+      "paddingTop": 22.5,
+      "width": 240,
+    }
+  }
+>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "borderBottomLeftRadius": 5,
+        "borderBottomRightRadius": 5,
+        "height": 206.25,
+        "width": 225,
+      }
+    }
+  >
+    <View
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "height": 168.75,
+            "width": "100%",
+          }
+        }
+      >
+        <Image
+          blurRadius={20}
+          source={
+            Object {
+              "uri": undefined,
+            }
+          }
+          style={
+            Object {
+              "height": "100%",
+              "width": "100%",
+            }
+          }
+        />
+        <Image
+          resizeMode="contain"
+          source={
+            Object {
+              "uri": undefined,
+            }
+          }
+          style={
+            Object {
+              "height": "100%",
+              "position": "absolute",
+              "width": "100%",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#eee",
+              "borderRadius": 10,
+              "bottom": 3,
+              "height": "20%",
+              "justifyContent": "center",
+              "left": 3,
+              "position": "absolute",
+              "width": "40%",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#c8a415",
+                "fontWeight": "bold",
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#ddd",
+            "borderBottomLeftRadius": 5,
+            "borderBottomRightRadius": 5,
+            "height": 37.5,
+            "justifyContent": "center",
+            "paddingLeft": "5%",
+            "width": 225,
+          }
+        }
+      >
+        <Text />
+      </View>
+    </View>
+  </View>
+</View>
+`;

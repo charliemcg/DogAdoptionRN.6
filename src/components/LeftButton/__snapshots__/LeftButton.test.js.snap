@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LeftButton snapShot 1`] = `
+<Text
+  allowFontScaling={false}
+  onPress={[Function]}
+  style={
+    Array [
+      Object {
+        "color": "#37474f",
+        "fontSize": 30,
+      },
+      Object {
+        "paddingLeft": 8,
+        "paddingRight": 10,
+      },
+      Object {
+        "fontFamily": "FontAwesome",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+      },
+      Object {},
+    ]
+  }
+>
+  
+</Text>
+`;

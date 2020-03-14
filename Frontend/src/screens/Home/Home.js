@@ -67,14 +67,34 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    this.getBreeds();
-    //maximum results returned by api is 50. Necessary to call several times to get a decent size database
-    let count = 0;
-    while (count < 10) {
-      loadAllDogsInSystem();
-      count++;
-    }
+    //////////////////Use this to get results from Django backend///////////////////
+    this.getDjangoData();
+    loadAllDogsInSystem();
+    //////////////////Use this to get results from Dog api///////////////////
+    // this.getBreeds();
+    // //maximum results returned by api is 50. Necessary to call several times to get a decent size database
+    // let count = 0;
+    // while (count < 10) {
+    //   loadAllDogsInSystem();
+    //   count++;
+    // }
   }
+
+  getDjangoData = () => {
+    fetch('http://127.0.0.1:8000/dog/')
+      .then(resp => {
+        return resp.json();
+      })
+      .then(data => {
+        let breedsArr = [];
+        let index = 0;
+        for (let dog in data) {
+          breedsArr.push({key: index++, label: data[dog].breed});
+        }
+        this.props.breedsList(breedsArr);
+      })
+      .catch(e => console.log(e));
+  };
 
   getBreeds = () => {
     fetch(constants.api.breedsList)
@@ -90,6 +110,7 @@ class Home extends Component {
           breedsArr.push({key: index++, label: key});
         }
         this.props.breedsList(breedsArr);
+        console.log(breedsArr);
       })
       .catch(e => console.log(e));
   };

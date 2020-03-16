@@ -81,7 +81,18 @@ class Home extends Component {
   }
 
   getDjangoData = () => {
-    fetch('http://127.0.0.1:8000/dog/')
+    // fetch('http://127.0.0.1:8000/end_user/Dummy1')
+    //   .then(resp => {
+    //     return resp.json();
+    //   })
+    //   .then(json => {
+    //     console.log(`username: ${json.username}`);
+    //     for (let user in json) {
+    //       console.log(`user ${json[user]}`);
+    //     }
+    //   });
+
+    fetch('http://127.0.0.1:8000/dog/dog')
       .then(resp => {
         return resp.json();
       })

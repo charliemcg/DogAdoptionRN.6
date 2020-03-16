@@ -11,10 +11,109 @@ import IconAwesome from 'react-native-vector-icons/FontAwesome5';
 import IconMCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './styles';
 import colors from '../../colors';
-import {signInOut} from '../../actions';
+import {signInOut, setUser} from '../../actions';
 import strings from './strings';
+import axios from 'react-native-axios';
 
 class SignIn extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {
+        first_name: 'Test',
+        last_name: 'User',
+        username: '',
+        location: 'SA',
+        password: '',
+      },
+      // //delete the dog
+      // dog: {
+      //   breed: 'Sausage',
+      //   location: 'QLD',
+      //   price: '1000',
+      // },
+      // user: {
+      //   first_name: 'Test',
+      //   last_name: 'User',
+      //   username: 'Dummy2',
+      //   location: 'SA',
+      //   password: 'Dummy2',
+      // },
+    };
+  }
+
+  onChangeUsername(text) {
+    this.setState({
+      user: {
+        first_name: this.state.user.first_name,
+        last_name: this.state.user.last_name,
+        username: text,
+        location: this.state.user.location,
+        password: this.state.user.password,
+      },
+    });
+  }
+
+  onChangePassword(text) {
+    this.setState({
+      user: {
+        first_name: this.state.user.first_name,
+        last_name: this.state.user.last_name,
+        username: this.state.user.username,
+        location: this.state.user.location,
+        password: text,
+      },
+    });
+  }
+
+  updateBackend() {
+    // figure out if signing up or signing in
+    if (this.props.signUp) {
+      fetch('http://127.0.0.1:8000/end_user/end_user/', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.state.user),
+      })
+        .then(() => {
+          this.props.setUser(this.state.user);
+        })
+        .then(() => {
+          this.props.signInOut();
+          this.props.navigation.navigate(strings.navigation.home);
+        })
+        .catch(e => console.log(e));
+    } else {
+      fetch(
+        `http://127.0.0.1:8000/end_user/end_user/${this.state.user.username}/`,
+      )
+        .then(resp => {
+          return resp.json();
+        })
+        .then(json => {
+          if (typeof json.username === 'undefined') {
+            throw 'User does not exist';
+          } else {
+            user = {
+              first_name: json.first_name,
+              last_name: json.last_name,
+              username: json.username,
+              location: json.location,
+              password: json.password,
+            };
+            this.props.setUser(user);
+          }
+        })
+        .then(() => {
+          this.props.signInOut();
+          this.props.navigation.navigate(strings.navigation.home);
+        })
+        .catch(e => console.log(`ERROR! ${e}`));
+    }
+  }
+
   render() {
     return (
       <KeyboardAvoidingView style={{flex: 3}} behavior="padding" enabled>
@@ -30,8 +129,9 @@ class SignIn extends Component {
             {/* textContentType is for autofill  */}
             <TextInput
               textContentType="username"
-              placeholder={strings.email}
+              placeholder={strings.username}
               style={styles.inputText}
+              onChangeText={text => this.onChangeUsername(text)}
             />
           </View>
         </View>
@@ -50,6 +150,7 @@ class SignIn extends Component {
               placeholder={strings.password}
               secureTextEntry={true}
               style={styles.inputText}
+              onChangeText={text => this.onChangePassword(text)}
             />
           </View>
         </View>
@@ -58,8 +159,7 @@ class SignIn extends Component {
           <TouchableHighlight
             style={styles.signIn}
             onPress={() => {
-              this.props.signInOut();
-              this.props.navigation.navigate(strings.navigation.home);
+              this.updateBackend();
             }}
             underlayColor={colors.dark}>
             <Text style={styles.signInText}>{strings.signIn}</Text>
@@ -74,6 +174,9 @@ const mapDispatchToProps = dispatch => {
   return {
     signInOut: () => {
       dispatch(signInOut());
+    },
+    setUser: user => {
+      dispatch(setUser(user));
     },
   };
 };

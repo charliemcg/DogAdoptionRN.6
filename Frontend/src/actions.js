@@ -48,6 +48,13 @@ export function signInOut() {
   };
 }
 
+export function setUser(user) {
+  return {
+    type: constants.actions.setUser,
+    payload: user,
+  };
+}
+
 export function addToFavorites(dog) {
   return {
     type: constants.actions.addToFavorites,

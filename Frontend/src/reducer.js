@@ -29,6 +29,14 @@ function getPlaceholderData() {
     exactMatches: 0,
     //is user signed in
     signedIn: false,
+    //details of signed in user
+    user: {
+      first_name: null,
+      last_name: null,
+      username: null,
+      location: null,
+      password: null,
+    },
     //dogs selected as favorites by the user
     favorites: [],
     //recently viewed dogs
@@ -89,6 +97,13 @@ const reducer = (state = getPlaceholderData(), action) => {
       state = {
         ...state,
         signedIn: !state.signedIn,
+      };
+      break;
+    //setting the signed in user
+    case constants.actions.setUser:
+      state = {
+        ...state,
+        user: action.payload,
       };
       break;
     //adding new dog to favorites

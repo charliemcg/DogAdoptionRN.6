@@ -8,14 +8,13 @@ export function loadAllDogsInSystem() {
   let imgArr = [];
   fetch(
     //get all dogs of all breeds
-    'http://127.0.0.1:8000/dog/',
+    'http://127.0.0.1:8000/dog/dog',
   )
     .then(resp => {
       return resp.json();
     })
     .then(data => {
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i]);
         imgArr.push({
           key: String(data[i]['id']),
           location: data[i]['location'],

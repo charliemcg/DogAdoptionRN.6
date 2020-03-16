@@ -12,7 +12,7 @@ import IconAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import colors from '../../colors';
-import {signInOut} from '../../actions';
+import {signInOut, setUser} from '../../actions';
 import {connect} from 'react-redux';
 import backgroundImg from '../../images/backgroundWhite.png';
 import RecentlyViewed from '../../components/RecentlyViewed';
@@ -66,10 +66,12 @@ class UserProfile extends Component {
             </View>
             {/* personal details */}
             <View style={styles.details}>
-              <Text>{strings.name}</Text>
+              <Text>
+                {this.props.user.first_name} {this.props.user.last_name}
+              </Text>
               <Text>{strings.street}</Text>
-              <Text>{strings.town}</Text>
-              <Text>{strings.email}</Text>
+              <Text>{this.props.user.location}</Text>
+              <Text>{this.props.user.username}</Text>
             </View>
             {/* recently view */}
             {/* only show if there are recent dogs in the array. The currently selected dog does not count. */}
@@ -115,6 +117,7 @@ class UserProfile extends Component {
                 style={styles.signOutBtn}
                 onPress={() => {
                   this.props.signInOut();
+                  this.props.setUser();
                   this.props.navigation.navigate(strings.navigation.home);
                 }}
                 underlayColor={colors.dark}>
@@ -151,6 +154,7 @@ class UserProfile extends Component {
 const mapStateToProps = state => {
   return {
     recentlyViewed: state.recentlyViewed,
+    user: state.user,
   };
 };
 
@@ -158,6 +162,16 @@ const mapDispatchToProps = dispatch => {
   return {
     signInOut: () => {
       dispatch(signInOut());
+    },
+    setUser: () => {
+      const user = {
+        firstName: null,
+        lastName: null,
+        username: null,
+        location: null,
+        password: null,
+      };
+      dispatch(setUser(user));
     },
   };
 };

@@ -12,6 +12,7 @@ export default {
     setSearchFilters: 'SET_SEARCH_FILTERS',
     setResults: 'SET_RESULTS',
     signInOut: 'SIGN_IN_OUT',
+    setUser: 'SET_USER',
     addToFavorites: 'ADD_TO_FAVORITES',
     removeFromFavorites: 'REMOVE_FROM_FAVORITES',
     addToRecents: 'ADD_TO_RECENTS',

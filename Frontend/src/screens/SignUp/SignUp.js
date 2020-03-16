@@ -24,7 +24,7 @@ export default class SignIn extends Component {
           />
         </View>
         {/* sign in component */}
-        <SignInComponent navigation={this.props.navigation} />
+        <SignInComponent navigation={this.props.navigation} signUp={true} />
         {/* new user link */}
         <View style={styles.privacyWrapper}>
           <Text

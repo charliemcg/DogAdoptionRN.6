@@ -33,7 +33,7 @@ class SignIn extends Component {
           />
         </View>
         {/* sign in component */}
-        <SignInComponent navigation={this.props.navigation} />
+        <SignInComponent navigation={this.props.navigation} signUp={false} />
         {/* sign in with Facebook */}
         <View style={styles.facebookWrapper}>
           <TouchableHighlight

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'dog',
-    'end_user'
+    'end_user',
+    'message'
 ]
 
 MIDDLEWARE = [

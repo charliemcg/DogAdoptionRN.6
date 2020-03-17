@@ -106,7 +106,7 @@ class UserProfile extends Component {
               })}
               {/* view messages */}
               {this.buttonSkeleton({
-                route: strings.navigation.underConstruction,
+                route: strings.navigation.messages,
                 icon: msgIcon,
                 text: strings.viewMessages,
               })}

@@ -5,65 +5,21 @@ import {getDogs} from './searchAlgorithm';
 
 export function loadAllDogsInSystem() {
   //////////////////Use this to get results from Django backend///////////////////
-  let imgArr = [];
-  fetch(
-    //get all dogs of all breeds
-    'http://127.0.0.1:8000/dog/dog',
-  )
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      for (let i = 0; i < data.length; i++) {
-        imgArr.push({
-          key: String(data[i]['id']),
-          location: data[i]['location'],
-          price: data[i]['price'],
-          breed: data[i]['breed'],
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae ultricies dolor. Aenean lacus nisi, viverra consequat consequat nec, pulvinar nec magna. Donec ac augue turpis. Curabitur vel sem nec arcu fermentum sollicitudin nec vitae ex. Proin tempus, orci nec facilisis dapibus, dolor velit efficitur purus, quis hendrerit ipsum nulla quis augue. Ut condimentum, nisi et hendrerit sagittis, libero enim dignissim sapien, in laoreet elit eros ut arcu. Phasellus venenatis elit in risus eleifend, a mollis justo bibendum. Fusce neque enim, lacinia eget neque vel, egestas blandit ante. Vestibulum rutrum ipsum nisi, in imperdiet mauris ultrices vitae. Morbi ultricies leo vitae purus varius, vel euismod nisi finibus. In et semper orci, ut dignissim lorem. Maecenas vitae consectetur augue. Vivamus condimentum a ipsum ut efficitur. Cras non mauris vitae nulla pellentesque volutpat. Quisque vitae nibh maximus, maximus sem vitae, hendrerit nisi.',
-          date: this.generateTimestamp(),
-        });
-      }
-      store.dispatch(setAllDogs(imgArr));
-      getDogs();
-    })
-    .catch(e => store.dispatch(toggleError(true)));
-  //////////////////Use this to get results from Dog api///////////////////
   // let imgArr = [];
   // fetch(
   //   //get all dogs of all breeds
-  //   constants.api.allDogs,
+  //   'http://127.0.0.1:8000/dog/dog',
   // )
   //   .then(resp => {
   //     return resp.json();
   //   })
   //   .then(data => {
-  //     for (let i = 0; i < data.message.length; i++) {
-  //       let trimmedString = '';
-  //       // need to extract breed from the image url
-  //       //removing the head
-  //       trimmedString = String(data.message[i]).replace(
-  //         'https://images.dog.ceo/breeds/',
-  //         '',
-  //       );
-  //       //removing the tail
-  //       let tailString = trimmedString.substring(trimmedString.indexOf('/'));
-  //       trimmedString = trimmedString.replace(tailString, '');
-  //       //simplifying more complicated breed types
-  //       let subBreedIndex = trimmedString.indexOf('-');
-  //       let subTailString = trimmedString.substring(subBreedIndex);
-  //       if (subBreedIndex > 0) {
-  //         trimmedString = trimmedString.replace(subTailString, '');
-  //       }
-  //       //capitalizing the breed
-  //       trimmedString =
-  //         trimmedString.charAt(0).toUpperCase() + trimmedString.slice(1);
+  //     for (let i = 0; i < data.length; i++) {
   //       imgArr.push({
-  //         key: String(data.message[i]),
-  //         location: constants.states[Math.floor(Math.random() * 8)],
-  //         price: this.generatePrice(),
-  //         breed: trimmedString,
+  //         key: String(data[i]['id']),
+  //         location: data[i]['location'],
+  //         price: data[i]['price'],
+  //         breed: data[i]['breed'],
   //         description:
   //           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae ultricies dolor. Aenean lacus nisi, viverra consequat consequat nec, pulvinar nec magna. Donec ac augue turpis. Curabitur vel sem nec arcu fermentum sollicitudin nec vitae ex. Proin tempus, orci nec facilisis dapibus, dolor velit efficitur purus, quis hendrerit ipsum nulla quis augue. Ut condimentum, nisi et hendrerit sagittis, libero enim dignissim sapien, in laoreet elit eros ut arcu. Phasellus venenatis elit in risus eleifend, a mollis justo bibendum. Fusce neque enim, lacinia eget neque vel, egestas blandit ante. Vestibulum rutrum ipsum nisi, in imperdiet mauris ultrices vitae. Morbi ultricies leo vitae purus varius, vel euismod nisi finibus. In et semper orci, ut dignissim lorem. Maecenas vitae consectetur augue. Vivamus condimentum a ipsum ut efficitur. Cras non mauris vitae nulla pellentesque volutpat. Quisque vitae nibh maximus, maximus sem vitae, hendrerit nisi.',
   //         date: this.generateTimestamp(),
@@ -73,6 +29,50 @@ export function loadAllDogsInSystem() {
   //     getDogs();
   //   })
   //   .catch(e => store.dispatch(toggleError(true)));
+  //////////////////Use this to get results from Dog api///////////////////
+  let imgArr = [];
+  fetch(
+    //get all dogs of all breeds
+    constants.api.allDogs,
+  )
+    .then(resp => {
+      return resp.json();
+    })
+    .then(data => {
+      for (let i = 0; i < data.message.length; i++) {
+        let trimmedString = '';
+        // need to extract breed from the image url
+        //removing the head
+        trimmedString = String(data.message[i]).replace(
+          'https://images.dog.ceo/breeds/',
+          '',
+        );
+        //removing the tail
+        let tailString = trimmedString.substring(trimmedString.indexOf('/'));
+        trimmedString = trimmedString.replace(tailString, '');
+        //simplifying more complicated breed types
+        let subBreedIndex = trimmedString.indexOf('-');
+        let subTailString = trimmedString.substring(subBreedIndex);
+        if (subBreedIndex > 0) {
+          trimmedString = trimmedString.replace(subTailString, '');
+        }
+        //capitalizing the breed
+        trimmedString =
+          trimmedString.charAt(0).toUpperCase() + trimmedString.slice(1);
+        imgArr.push({
+          key: String(data.message[i]),
+          location: constants.states[Math.floor(Math.random() * 8)],
+          price: this.generatePrice(),
+          breed: trimmedString,
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae ultricies dolor. Aenean lacus nisi, viverra consequat consequat nec, pulvinar nec magna. Donec ac augue turpis. Curabitur vel sem nec arcu fermentum sollicitudin nec vitae ex. Proin tempus, orci nec facilisis dapibus, dolor velit efficitur purus, quis hendrerit ipsum nulla quis augue. Ut condimentum, nisi et hendrerit sagittis, libero enim dignissim sapien, in laoreet elit eros ut arcu. Phasellus venenatis elit in risus eleifend, a mollis justo bibendum. Fusce neque enim, lacinia eget neque vel, egestas blandit ante. Vestibulum rutrum ipsum nisi, in imperdiet mauris ultrices vitae. Morbi ultricies leo vitae purus varius, vel euismod nisi finibus. In et semper orci, ut dignissim lorem. Maecenas vitae consectetur augue. Vivamus condimentum a ipsum ut efficitur. Cras non mauris vitae nulla pellentesque volutpat. Quisque vitae nibh maximus, maximus sem vitae, hendrerit nisi.',
+          date: this.generateTimestamp(),
+        });
+      }
+      store.dispatch(setAllDogs(imgArr));
+      getDogs();
+    })
+    .catch(e => store.dispatch(toggleError(true)));
 }
 
 //generating placeholder prices. Not to be used in production

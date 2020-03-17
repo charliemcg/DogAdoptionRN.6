@@ -10,6 +10,7 @@ import Favorites from '../../screens/Favorites';
 import UnderConstruction from '../../screens/UnderConstruction';
 import Filter from '../../screens/Filter';
 import PrivacyPolicy from '../../screens/PrivacyPolicy';
+import Messages from '../../screens/Messages';
 import UserProfile from '../../screens/UserProfile';
 import colors from '../../colors';
 import strings from './strings';
@@ -40,6 +41,7 @@ const Stack = createStackNavigator(
     UserProfile,
     UnderConstruction,
     Favorites,
+    Messages,
   },
   {
     // styling the header for each screen

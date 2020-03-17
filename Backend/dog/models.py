@@ -11,4 +11,4 @@ class dog(models.Model):
     location = models.CharField(max_length=50)
     breed = models.CharField(max_length=50)
     price = models.CharField(max_length=50)
-    # user = models.CharField(max_length=50)
+    user = models.CharField(max_length=50)

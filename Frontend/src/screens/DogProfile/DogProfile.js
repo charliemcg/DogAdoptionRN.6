@@ -49,7 +49,11 @@ class DogProfile extends Component {
     super(props);
     this.state = {
       //needed for checking the character count of the user inputted message
-      message: '',
+      message: {
+        content: '',
+        sender: this.props.user.username,
+        receiver: this.props.selectedDog.user,
+      },
       fullScreenPhoto: false,
     };
   }
@@ -92,26 +96,47 @@ class DogProfile extends Component {
 
   //only send message if it is valid
   handleSend = () => {
-    this.state.message.length <= 750 && this.state.message.length > 0
-      ? alert(strings.underConstruction)
+    this.state.message.content.length <= 750 &&
+    this.state.message.content.length > 0
+      ? this.postMessage()
       : this.refs[strings.refs.shakeRef].shake(500);
   };
 
-  //record keystroke for counting the message's charachter count
+  //record keystroke for counting the message's character count
   handleMessageChanged = msg => {
-    this.setState({message: msg});
+    console.log(`msg length ${JSON.stringify(this.state)}`);
+    this.setState({
+      message: {
+        ...this.state.message,
+        content: msg,
+      },
+    });
+  };
+
+  //posting a new message
+  postMessage = () => {
+    fetch('http://127.0.0.1:8000/message/message/', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state.message),
+    })
+      .then(() => console.log(JSON.stringify(this.state.message)))
+      .catch(e => console.log(e));
   };
 
   render() {
-    const {message} = this.state;
+    const {content} = this.state.message;
 
     //returning the length of the user inputted message and coloring it red if too long
     const characterLength = (
       <Text
         style={{
-          color: message.length <= 750 ? colors.fadedText : 'red',
+          color: content.length <= 750 ? colors.fadedText : 'red',
         }}>
-        {message.length}
+        {content.length}
       </Text>
     );
 
@@ -218,7 +243,7 @@ class DogProfile extends Component {
               styles.sendAnimatable,
               {
                 backgroundColor:
-                  message.length <= 750 && message.length > 0
+                  content.length <= 750 && content.length > 0
                     ? colors.primary
                     : colors.fadedText,
               },
@@ -357,6 +382,7 @@ const mapStateToProps = state => {
     selectedDog: state.selectedDog,
     signedIn: state.signedIn,
     recentlyViewed: state.recentlyViewed,
+    user: state.user,
   };
 };
 

@@ -68,16 +68,16 @@ class Home extends Component {
 
   componentDidMount() {
     //////////////////Use this to get results from Django backend///////////////////
-    // this.getDjangoData();
-    // loadAllDogsInSystem();
+    this.getDjangoData();
+    loadAllDogsInSystem();
     //////////////////Use this to get results from Dog api///////////////////
-    this.getBreeds();
-    //maximum results returned by api is 50. Necessary to call several times to get a decent size database
-    let count = 0;
-    while (count < 10) {
-      loadAllDogsInSystem();
-      count++;
-    }
+    // this.getBreeds();
+    // //maximum results returned by api is 50. Necessary to call several times to get a decent size database
+    // let count = 0;
+    // while (count < 10) {
+    //   loadAllDogsInSystem();
+    //   count++;
+    // }
   }
 
   getDjangoData = () => {

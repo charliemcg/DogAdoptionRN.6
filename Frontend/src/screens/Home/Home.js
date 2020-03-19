@@ -68,51 +68,51 @@ class Home extends Component {
 
   componentDidMount() {
     //////////////////Use this to get results from Django backend///////////////////
-    this.getDjangoData();
-    loadAllDogsInSystem();
+    // this.getDjangoData();
+    // loadAllDogsInSystem();
     //////////////////Use this to get results from Dog api///////////////////
     // this.getBreeds();
-    // //maximum results returned by api is 50. Necessary to call several times to get a decent size database
-    // let count = 0;
-    // while (count < 10) {
-    //   loadAllDogsInSystem();
-    //   count++;
-    // }
+    //maximum results returned by api is 50. Necessary to call several times to get a decent size database
+    let count = 0;
+    while (count < 10) {
+      loadAllDogsInSystem();
+      count++;
+    }
   }
 
-  getDjangoData = () => {
-    fetch('http://127.0.0.1:8000/dog/dog')
-      .then(resp => {
-        return resp.json();
-      })
-      .then(data => {
-        let breedsArr = [];
-        let index = 0;
-        for (let dog in data) {
-          breedsArr.push({key: index++, label: data[dog].breed});
-        }
-        this.props.breedsList(breedsArr);
-      })
-      .catch(e => console.log(e));
-  };
+  // getDjangoData = () => {
+  //   fetch('http://127.0.0.1:8000/dog/dog')
+  //     .then(resp => {
+  //       return resp.json();
+  //     })
+  //     .then(data => {
+  //       let breedsArr = [];
+  //       let index = 0;
+  //       for (let dog in data) {
+  //         breedsArr.push({key: index++, label: data[dog].breed});
+  //       }
+  //       this.props.breedsList(breedsArr);
+  //     })
+  //     .catch(e => console.log(e));
+  // };
 
-  getBreeds = () => {
-    fetch(constants.api.breedsList)
-      .then(resp => {
-        return resp.json();
-      })
-      .then(data => {
-        let breedsArr = [];
-        let index = 0;
-        for (let key in data.message) {
-          //capitalizing the breed
-          key = key.charAt(0).toUpperCase() + key.slice(1);
-          breedsArr.push({key: index++, label: key});
-        }
-        this.props.breedsList(breedsArr);
-      })
-      .catch(e => console.log(e));
-  };
+  // getBreeds = () => {
+  //   fetch(constants.api.breedsList)
+  //     .then(resp => {
+  //       return resp.json();
+  //     })
+  //     .then(data => {
+  //       let breedsArr = [];
+  //       let index = 0;
+  //       for (let key in data.message) {
+  //         //capitalizing the breed
+  //         key = key.charAt(0).toUpperCase() + key.slice(1);
+  //         breedsArr.push({key: index++, label: key});
+  //       }
+  //       this.props.breedsList(breedsArr);
+  //     })
+  //     .catch(e => console.log(e));
+  // };
 
   render() {
     //shown when there is an error getting data

@@ -52,7 +52,7 @@ class DogProfile extends Component {
       message: {
         content: '',
         sender: this.props.user.username,
-        receiver: this.props.selectedDog.user,
+        receiver: this.props.selectedDog.user.username,
       },
       fullScreenPhoto: false,
     };
@@ -98,13 +98,14 @@ class DogProfile extends Component {
   handleSend = () => {
     this.state.message.content.length <= 750 &&
     this.state.message.content.length > 0
-      ? this.postMessage()
+      ? this.props.signedIn
+        ? this.postMessage()
+        : alert('You must be logged in to send messages.')
       : this.refs[strings.refs.shakeRef].shake(500);
   };
 
   //record keystroke for counting the message's character count
   handleMessageChanged = msg => {
-    console.log(`msg length ${JSON.stringify(this.state)}`);
     this.setState({
       message: {
         ...this.state.message,
@@ -123,7 +124,13 @@ class DogProfile extends Component {
       },
       body: JSON.stringify(this.state.message),
     })
-      .then(() => console.log(JSON.stringify(this.state.message)))
+      .then(() => {
+        this.handleMessageChanged('');
+        alert('Message sent successfully');
+      })
+      .then(() =>
+        console.log(`Sending... ${JSON.stringify(this.state.message)}`),
+      )
       .catch(e => console.log(e));
   };
 
@@ -203,7 +210,9 @@ class DogProfile extends Component {
                 strings.navigation.underConstruction,
               )
             }>
-            {strings.johnSmith}
+            {/* {strings.johnSmith} */}
+            {this.props.selectedDog.user.first_name}{' '}
+            {this.props.selectedDog.user.last_name}
           </Text>
         </View>
         <View>

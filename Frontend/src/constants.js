@@ -4,6 +4,8 @@ export default {
     allDogs: 'https://dog.ceo/api/breeds/image/random/50',
     imagesStart: 'https://dog.ceo/api/breed/',
     imagesEnd: '/images',
+    allImages: 'https://images.dog.ceo/breeds/',
+    djangoTestApi: 'http://127.0.0.1:8000/dog/dog',
   },
   actions: {
     setAllDogs: 'SET_ALL_DOGS',

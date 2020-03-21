@@ -48,7 +48,6 @@ class DogProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //needed for checking the character count of the user inputted message
       message: {
         content: '',
         sender: this.props.user.username,
@@ -116,11 +115,11 @@ class DogProfile extends Component {
 
   //posting a new message
   postMessage = () => {
-    fetch('http://127.0.0.1:8000/message/message/', {
+    fetch(strings.messageApi, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: strings.applicationJson,
+        'Content-Type': strings.applicationJson,
       },
       body: JSON.stringify(this.state.message),
     })
@@ -211,7 +210,6 @@ class DogProfile extends Component {
                 strings.navigation.underConstruction,
               )
             }>
-            {/* {strings.johnSmith} */}
             {this.props.selectedDog.user.first_name}{' '}
             {this.props.selectedDog.user.last_name}
           </Text>

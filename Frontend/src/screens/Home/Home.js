@@ -9,11 +9,9 @@ import {
 import {connect} from 'react-redux';
 import styles from './styles';
 import colors from '../../colors';
-import constants from '../../constants';
 import ListItem from '../../components/ListItem';
 import LeftButton from '../../components/LeftButton';
 import IconMCI from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import {TouchableHighlight} from 'react-native-gesture-handler';
@@ -67,52 +65,12 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    //////////////////Use this to get results from Django backend///////////////////
-    // this.getDjangoData();
-    // loadAllDogsInSystem();
-    //////////////////Use this to get results from Dog api///////////////////
-    // this.getBreeds();
-    //maximum results returned by api is 50. Necessary to call several times to get a decent size database
     let count = 0;
     while (count < 10) {
       loadAllDogsInSystem();
       count++;
     }
   }
-
-  // getDjangoData = () => {
-  //   fetch('http://127.0.0.1:8000/dog/dog')
-  //     .then(resp => {
-  //       return resp.json();
-  //     })
-  //     .then(data => {
-  //       let breedsArr = [];
-  //       let index = 0;
-  //       for (let dog in data) {
-  //         breedsArr.push({key: index++, label: data[dog].breed});
-  //       }
-  //       this.props.breedsList(breedsArr);
-  //     })
-  //     .catch(e => console.log(e));
-  // };
-
-  // getBreeds = () => {
-  //   fetch(constants.api.breedsList)
-  //     .then(resp => {
-  //       return resp.json();
-  //     })
-  //     .then(data => {
-  //       let breedsArr = [];
-  //       let index = 0;
-  //       for (let key in data.message) {
-  //         //capitalizing the breed
-  //         key = key.charAt(0).toUpperCase() + key.slice(1);
-  //         breedsArr.push({key: index++, label: key});
-  //       }
-  //       this.props.breedsList(breedsArr);
-  //     })
-  //     .catch(e => console.log(e));
-  // };
 
   render() {
     //shown when there is an error getting data

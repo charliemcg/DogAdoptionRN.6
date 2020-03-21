@@ -12,13 +12,14 @@ class Messages extends Component {
   }
 
   componentDidMount() {
-    fetch('http://127.0.0.1:8000/message/message/')
+    fetch(strings.messageApi)
       .then(resp => {
         return resp.json();
       })
       .then(json => {
         const loggedInUser = this.props.user.username;
         msgArr = [];
+        // getting messages addressed to the signed in user
         for (let msg in json) {
           json[msg].receiver === loggedInUser && msgArr.push(json[msg].content);
         }

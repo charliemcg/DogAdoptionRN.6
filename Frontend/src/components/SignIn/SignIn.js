@@ -55,11 +55,11 @@ class SignIn extends Component {
   updateBackend() {
     // figure out if signing up or signing in
     if (this.props.signUp) {
-      fetch('http://127.0.0.1:8000/end_user/end_user/', {
+      fetch(string.userApi, {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: strings.applicationJson,
+          'Content-Type': strings.applicationJson,
         },
         body: JSON.stringify(this.state.user),
       })
@@ -72,16 +72,14 @@ class SignIn extends Component {
         })
         .catch(e => console.log(e));
     } else {
-      fetch(
-        `http://127.0.0.1:8000/end_user/end_user/${this.state.user.username}/`,
-      )
+      fetch(`${strings.userApi}${this.state.user.username}/`)
         .then(resp => {
           return resp.json();
         })
         .then(json => {
-          //reject users which do not already exist
-          if (typeof json.username === 'undefined') {
-            throw 'User does not exist';
+          //reject users which do not exist
+          if (typeof json.username === strings.undefined) {
+            throw strings.userNotExist;
           } else {
             user = {
               first_name: json.first_name,
@@ -97,7 +95,7 @@ class SignIn extends Component {
           this.props.signInOut();
           this.props.navigation.navigate(strings.navigation.home);
         })
-        .catch(e => console.log(`ERROR! ${e}`));
+        .catch(e => console.log(e));
     }
   }
 

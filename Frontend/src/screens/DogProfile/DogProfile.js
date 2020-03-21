@@ -126,6 +126,7 @@ class DogProfile extends Component {
     })
       .then(() => {
         this.handleMessageChanged('');
+        this.msgTextInput.clear();
         alert('Message sent successfully');
       })
       .then(() =>
@@ -237,6 +238,9 @@ class DogProfile extends Component {
         </View>
         <TextInput
           style={styles.message}
+          ref={input => {
+            this.msgTextInput = input;
+          }}
           multiline={true}
           placeholder={strings.dogStillAvailable}
           onChangeText={msg => this.handleMessageChanged(msg)}

@@ -1,22 +1,3 @@
-/**
- * User Profile Notes
- *
- * Users can sign up via the sign up page.
- * Existing users can sign in via the sign in page.
- * Non existing users cannot sign in via the sign in page.
- * User details are stored in redux only while signed in.
- *
- * TODO
- * Encrypt passwords
- * Allow users to enter their first name, last name and location
- * Allow users to change their details
- * User picker instead of CharField for location
- * Make it so that email address works as primary key and get rid of usernames
- * Implement character limits on user details
- * Implement password constraints
- *
- */
-
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {

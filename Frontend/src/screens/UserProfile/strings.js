@@ -15,5 +15,7 @@ export default {
     favorites: 'Favorites',
     home: 'Home',
     messages: 'Messages',
+    sellDog: 'SellDog',
+    viewAds: 'ViewAds',
   },
 };

@@ -55,7 +55,7 @@ class SignIn extends Component {
   updateBackend() {
     // figure out if signing up or signing in
     if (this.props.signUp) {
-      fetch(string.userApi, {
+      fetch(strings.userApi, {
         method: 'POST',
         headers: {
           Accept: strings.applicationJson,
@@ -64,7 +64,7 @@ class SignIn extends Component {
         body: JSON.stringify(this.state.user),
       })
         .then(() => {
-          this.props.setUser(this.state.user);
+          this.props.setUser(user);
         })
         .then(() => {
           this.props.signInOut();

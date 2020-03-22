@@ -1,46 +1,49 @@
 import React, {Component} from 'react';
-import {SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {View, Text, SafeAreaView, ScrollView} from 'react-native';
 import styles from './styles';
 import {connect} from 'react-redux';
 import strings from './strings';
 
-class Messages extends Component {
+class ViewAds extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [],
+      dogs: [],
     };
   }
 
   componentDidMount() {
-    fetch(strings.messageApi)
+    fetch(strings.dogApi)
       .then(resp => {
         return resp.json();
       })
       .then(json => {
         const loggedInUser = this.props.user.username;
-        msgArr = [];
-        // getting messages addressed to the signed in user
-        for (let msg in json) {
-          json[msg].receiver === loggedInUser && msgArr.push(json[msg].content);
+        dogArr = [];
+        // getting dogs which were posted by the signed in user
+        for (let dog in json) {
+          json[dog].user === loggedInUser && dogArr.push(json[dog]);
         }
+        console.log(`results: ${dogArr}`);
         this.setState({
-          messages: msgArr,
+          dogs: dogArr,
         });
       });
   }
 
   render() {
-    const msgs = this.state.messages.map(e => {
+    const dogResults = this.state.dogs.map(e => {
       return (
         <View>
-          <Text>{e}</Text>
+          <Text>{e.breed}</Text>
+          <Text>{e.price}</Text>
+          <Text>{e.description}</Text>
         </View>
       );
     });
     return (
       <SafeAreaView style={styles.parent}>
-        <ScrollView>{msgs}</ScrollView>
+        <ScrollView>{dogResults}</ScrollView>
       </SafeAreaView>
     );
   }
@@ -52,4 +55,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, null)(Messages);
+export default connect(mapStateToProps, null)(ViewAds);

@@ -86,13 +86,13 @@ class UserProfile extends Component {
             <View style={styles.gridRow}>
               {/* sell dog */}
               {this.buttonSkeleton({
-                route: strings.navigation.underConstruction,
+                route: strings.navigation.sellDog,
                 icon: sellIcon,
                 text: strings.sellADog,
               })}
               {/* view ads */}
               {this.buttonSkeleton({
-                route: strings.navigation.underConstruction,
+                route: strings.navigation.viewAds,
                 icon: adIcon,
                 text: strings.viewMyAds,
               })}

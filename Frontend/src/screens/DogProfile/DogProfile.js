@@ -103,16 +103,6 @@ class DogProfile extends Component {
       : this.refs[strings.refs.shakeRef].shake(500);
   };
 
-  //record keystroke for counting the message's character count
-  handleMessageChanged = msg => {
-    this.setState({
-      message: {
-        ...this.state.message,
-        content: msg,
-      },
-    });
-  };
-
   //posting a new message
   postMessage = () => {
     fetch(strings.messageApi, {
@@ -132,6 +122,16 @@ class DogProfile extends Component {
         console.log(`Sending... ${JSON.stringify(this.state.message)}`),
       )
       .catch(e => console.log(e));
+  };
+
+  //record keystroke for counting the message's character count
+  handleMessageChanged = msg => {
+    this.setState({
+      message: {
+        ...this.state.message,
+        content: msg,
+      },
+    });
   };
 
   render() {

@@ -12,6 +12,8 @@ import Filter from '../../screens/Filter';
 import PrivacyPolicy from '../../screens/PrivacyPolicy';
 import Messages from '../../screens/Messages';
 import UserProfile from '../../screens/UserProfile';
+import SellDog from '../../screens/SellDog';
+import ViewAds from '../../screens/ViewAds';
 import colors from '../../colors';
 import strings from './strings';
 
@@ -42,6 +44,8 @@ const Stack = createStackNavigator(
     UnderConstruction,
     Favorites,
     Messages,
+    SellDog,
+    ViewAds,
   },
   {
     // styling the header for each screen

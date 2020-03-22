@@ -9,6 +9,8 @@ from django.db import models
 class dog(models.Model):
     # make these pickers instead of text inputs
     location = models.CharField(max_length=50)
-    breed = models.CharField(max_length=50)
     price = models.CharField(max_length=50)
+    breed = models.CharField(max_length=50)
+    description = models.CharField(max_length=50)
+    date = models.CharField(max_length=50)
     user = models.CharField(max_length=50)

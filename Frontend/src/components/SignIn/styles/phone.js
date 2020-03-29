@@ -72,4 +72,11 @@ export default {
     borderRadius: 10,
   },
   signInText: {color: colors.contrast},
+  errorMessage: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    color: 'red',
+  },
 };

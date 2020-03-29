@@ -27,115 +27,241 @@ class SignIn extends Component {
         password: '',
       },
       showExtendedDetails: false,
+      errors: {
+        username: false,
+        password: false,
+        first_name: false,
+        last_name: false,
+      },
     };
   }
 
   onChangeUsername(text) {
     this.setState({
+      // user: {
+      //   first_name: this.state.user.first_name,
+      //   last_name: this.state.user.last_name,
+      //   username: text,
+      //   location: this.state.user.location,
+      //   password: this.state.user.password,
+      // },
       user: {
-        first_name: this.state.user.first_name,
-        last_name: this.state.user.last_name,
+        ...this.state.user,
         username: text,
-        location: this.state.user.location,
-        password: this.state.user.password,
+      },
+      errors: {
+        ...this.state.errors,
+        username: false,
       },
     });
   }
 
   onChangePassword(text) {
     this.setState({
+      // user: {
+      //   first_name: this.state.user.first_name,
+      //   last_name: this.state.user.last_name,
+      //   username: this.state.user.username,
+      //   location: this.state.user.location,
+      //   password: text,
+      // },
       user: {
-        first_name: this.state.user.first_name,
-        last_name: this.state.user.last_name,
-        username: this.state.user.username,
-        location: this.state.user.location,
+        ...this.state.user,
         password: text,
+      },
+      errors: {
+        ...this.state.errors,
+        password: false,
       },
     });
   }
 
   onChangeFirstName(text) {
     this.setState({
+      // user: {
+      //   first_name: text,
+      //   last_name: this.state.user.last_name,
+      //   username: this.state.user.username,
+      //   location: this.state.user.location,
+      //   password: this.state.user.password,
+      // },
       user: {
+        ...this.state.user,
         first_name: text,
-        last_name: this.state.user.last_name,
-        username: this.state.user.username,
-        location: this.state.user.location,
-        password: this.state.user.password,
+      },
+      errors: {
+        ...this.state.errors,
+        first_name: false,
       },
     });
   }
 
   onChangeLastName(text) {
     this.setState({
+      // user: {
+      //   first_name: this.state.user.first_name,
+      //   last_name: text,
+      //   username: this.state.user.username,
+      //   location: this.state.user.location,
+      //   password: this.state.user.password,
+      // },
       user: {
-        first_name: this.state.user.first_name,
+        ...this.state.user,
         last_name: text,
-        username: this.state.user.username,
-        location: this.state.user.location,
-        password: this.state.user.password,
+      },
+      errors: {
+        ...this.state.errors,
+        last_name: false,
       },
     });
   }
 
   onChangeLocation(text) {
     this.setState({
+      // user: {
+      //   first_name: this.state.user.first_name,
+      //   last_name: this.state.user.last_name,
+      //   username: this.state.user.username,
+      //   location: text,
+      //   password: this.state.user.password,
+      // },
       user: {
-        first_name: this.state.user.first_name,
-        last_name: this.state.user.last_name,
-        username: this.state.user.username,
+        ...this.state.user,
         location: text,
-        password: this.state.user.password,
       },
     });
   }
 
-  updateBackend() {
-    // figure out if signing up or signing in
-    if (this.props.signUp) {
-      fetch(strings.userApi, {
-        method: 'POST',
-        headers: {
-          Accept: strings.applicationJson,
-          'Content-Type': strings.applicationJson,
-        },
-        body: JSON.stringify(this.state.user),
-      })
-        .then(() => {
-          this.props.setUser(user);
-        })
-        .then(() => {
-          this.props.signInOut();
-          this.props.navigation.navigate(strings.navigation.home);
-        })
-        .catch(e => console.log(e));
+  // ensure username and/or password is not null
+  validateStageOne() {
+    // check that input fields are not null
+    if (
+      this.state.user.username.length > 0 &&
+      this.state.user.password.length > 0
+    ) {
+      // sign in existing user or ask new user for more details
+      !this.props.signUp
+        ? this.signInExistingUser()
+        : this.setState({showExtendedDetails: true});
     } else {
-      fetch(`${strings.userApi}${this.state.user.username}/`)
-        .then(resp => {
-          return resp.json();
-        })
-        .then(json => {
-          //reject users which do not exist
-          if (typeof json.username === strings.undefined) {
-            throw strings.userNotExist;
-          } else {
-            user = {
-              first_name: json.first_name,
-              last_name: json.last_name,
-              username: json.username,
-              location: json.location,
-              password: json.password,
-            };
-            this.props.setUser(user);
-          }
-        })
-        .then(() => {
-          this.props.signInOut();
-          this.props.navigation.navigate(strings.navigation.home);
-        })
-        .catch(e => console.log(e));
+      this.setState({
+        ...this.state,
+        errors: {
+          ...this.state.errors,
+          username: this.state.user.username.length === 0 ? true : false,
+          password: this.state.user.password.length === 0 ? true : false,
+        },
+      });
     }
   }
+
+  // ensure first and/or last name is not null
+  validateStageTwo() {
+    // check that input fields are not null
+    if (
+      this.state.user.first_name.length > 0 &&
+      this.state.user.last_name.length > 0
+    ) {
+      // check that user doesn't already exist
+      this.checkUserIsNew();
+    } else {
+      this.setState({
+        ...this.state,
+        errors: {
+          ...this.state.errors,
+          first_name: this.state.user.first_name.length === 0 ? true : false,
+          last_name: this.state.user.last_name.length === 0 ? true : false,
+        },
+      });
+    }
+  }
+
+  checkUserIsNew() {
+    fetch(`${strings.userApi}${this.state.user.username}/`)
+      .then(resp => {
+        return resp.json();
+      })
+      .then(json => {
+        if (typeof json.username === strings.undefined) {
+          this.signUpNewUser();
+        } else {
+          throw strings.error.userAlreadyExists;
+        }
+      })
+      .catch(e => {
+        console.log(e);
+        if (e === strings.error.userAlreadyExists) {
+          alert(strings.error.userAlreadyExists);
+        } else {
+          alert(strings.error.genericError);
+        }
+      });
+  }
+
+  signUpNewUser() {
+    fetch(strings.userApi, {
+      method: 'POST',
+      headers: {
+        Accept: strings.applicationJson,
+        'Content-Type': strings.applicationJson,
+      },
+      body: JSON.stringify(this.state.user),
+    })
+      .then(() => {
+        this.props.setUser(this.state.user);
+      })
+      .then(() => {
+        this.props.signInOut();
+        this.props.navigation.navigate(strings.navigation.home);
+      })
+      .catch(e => console.log(e));
+  }
+
+  signInExistingUser() {
+    fetch(`${strings.userApi}${this.state.user.username}/`)
+      .then(resp => {
+        return resp.json();
+      })
+      .then(json => {
+        //reject users which do not exist
+        if (typeof json.username === strings.undefined) {
+          throw strings.error.userNotExist;
+        } else if (json.username !== this.state.user.password) {
+          throw strings.error.passwordWrong;
+        } else {
+          user = {
+            first_name: json.first_name,
+            last_name: json.last_name,
+            username: json.username,
+            location: json.location,
+            password: json.password,
+          };
+          this.props.setUser(user);
+        }
+      })
+      .then(() => {
+        this.props.signInOut();
+        this.props.navigation.navigate(strings.navigation.home);
+      })
+      .catch(e => {
+        console.log(e);
+        if (e === strings.error.userNotExist) {
+          alert(`${strings.error.noAccount} ${this.state.user.username}.`);
+        } else if (e === strings.error.passwordWrong) {
+          alert(strings.error.incorrectPassword);
+        } else {
+          alert(strings.error.genericError);
+        }
+      });
+  }
+
+  getErrorMessage = text => {
+    return (
+      <View style={styles.errorMessage}>
+        <Text style={styles.errorText}>{text}</Text>
+      </View>
+    );
+  };
 
   render() {
     locations = ['QLD', 'NSW', 'VIC', 'NT', 'WA', 'SA', 'ACT', 'TAS'];
@@ -148,12 +274,20 @@ class SignIn extends Component {
         <TouchableHighlight
           style={styles.signIn}
           onPress={() => {
-            !this.state.showExtendedDetails
-              ? this.setState({showExtendedDetails: true})
-              : this.updateBackend();
+            {
+              /* determine how the button should behave based on if new or existing user and where they are in the sign up process */
+            }
+            !this.props.signUp
+              ? this.validateStageOne()
+              : !this.state.showExtendedDetails
+              ? //this.setState({showExtendedDetails: true})
+                this.validateStageOne()
+              : // : this.signUpNewUser();
+                this.validateStageTwo();
           }}
           underlayColor={colors.dark}>
           <Text style={styles.signInText}>
+            {/* determine what text to display on the button based on if new or existing user and where they are in the sign up process */}
             {!this.props.signUp
               ? strings.signIn
               : !this.state.showExtendedDetails
@@ -180,10 +314,14 @@ class SignIn extends Component {
               textContentType="username"
               placeholder={strings.username}
               style={styles.inputText}
+              maxLength={18}
               onChangeText={text => this.onChangeUsername(text)}
             />
           </View>
         </View>
+        {/* error */}
+        {this.state.errors.username &&
+          this.getErrorMessage(strings.usernameRequired)}
         {/* password */}
         <View style={styles.passwordWrapper}>
           <View style={styles.textInput}>
@@ -199,10 +337,14 @@ class SignIn extends Component {
               placeholder={strings.password}
               secureTextEntry={true}
               style={styles.inputText}
+              maxLength={18}
               onChangeText={text => this.onChangePassword(text)}
             />
           </View>
         </View>
+        {/* error */}
+        {this.state.errors.password &&
+          this.getErrorMessage(strings.passwordRequired)}
         {/* sign in */}
         {signUpButton}
       </KeyboardAvoidingView>
@@ -220,6 +362,9 @@ class SignIn extends Component {
             />
           </View>
         </View>
+        {/* error */}
+        {this.state.errors.first_name &&
+          this.getErrorMessage(strings.firstNameRequired)}
         {/* lastname */}
         <View style={styles.lastNameWrapper}>
           <View style={styles.textInput}>
@@ -230,6 +375,9 @@ class SignIn extends Component {
             />
           </View>
         </View>
+        {/* error */}
+        {this.state.errors.last_name &&
+          this.getErrorMessage(strings.lastNameRequired)}
         {/* location */}
         <View style={styles.locationWrapper}>
           <ModalSelector

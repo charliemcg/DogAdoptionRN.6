@@ -51,9 +51,9 @@ class SignIn extends Component {
           <Text>{strings.newMember}</Text>
           <Text
             style={{color: colors.dark}}
-            onPress={() =>
-              this.props.navigation.navigate(strings.navigation.signUp)
-            }>
+            onPress={() => {
+              this.props.navigation.navigate(strings.navigation.signUp);
+            }}>
             {strings.signUp}
           </Text>
         </View>

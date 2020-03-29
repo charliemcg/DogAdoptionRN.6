@@ -13,18 +13,20 @@ import styles from './styles';
 import colors from '../../colors';
 import {signInOut, setUser} from '../../actions';
 import strings from './strings';
+import ModalSelector from 'react-native-modal-selector';
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {
-        first_name: 'Test',
-        last_name: 'User',
+        first_name: '',
+        last_name: '',
         username: '',
-        location: 'SA',
+        location: 'VIC',
         password: '',
       },
+      showExtendedDetails: false,
     };
   }
 
@@ -48,6 +50,42 @@ class SignIn extends Component {
         username: this.state.user.username,
         location: this.state.user.location,
         password: text,
+      },
+    });
+  }
+
+  onChangeFirstName(text) {
+    this.setState({
+      user: {
+        first_name: text,
+        last_name: this.state.user.last_name,
+        username: this.state.user.username,
+        location: this.state.user.location,
+        password: this.state.user.password,
+      },
+    });
+  }
+
+  onChangeLastName(text) {
+    this.setState({
+      user: {
+        first_name: this.state.user.first_name,
+        last_name: text,
+        username: this.state.user.username,
+        location: this.state.user.location,
+        password: this.state.user.password,
+      },
+    });
+  }
+
+  onChangeLocation(text) {
+    this.setState({
+      user: {
+        first_name: this.state.user.first_name,
+        last_name: this.state.user.last_name,
+        username: this.state.user.username,
+        location: text,
+        password: this.state.user.password,
       },
     });
   }
@@ -100,7 +138,33 @@ class SignIn extends Component {
   }
 
   render() {
-    return (
+    locations = ['QLD', 'NSW', 'VIC', 'NT', 'WA', 'SA', 'ACT', 'TAS'];
+    const pickerItems = locations.map((val, i) => {
+      return {key: i, label: val};
+    });
+
+    signUpButton = (
+      <View style={styles.signInWrapper}>
+        <TouchableHighlight
+          style={styles.signIn}
+          onPress={() => {
+            !this.state.showExtendedDetails
+              ? this.setState({showExtendedDetails: true})
+              : this.updateBackend();
+          }}
+          underlayColor={colors.dark}>
+          <Text style={styles.signInText}>
+            {!this.props.signUp
+              ? strings.signIn
+              : !this.state.showExtendedDetails
+              ? strings.continue
+              : strings.signUp}
+          </Text>
+        </TouchableHighlight>
+      </View>
+    );
+
+    stageOne = (
       <KeyboardAvoidingView style={{flex: 3}} behavior="padding" enabled>
         {/* username */}
         <View style={styles.usernameWrapper}>
@@ -140,18 +204,52 @@ class SignIn extends Component {
           </View>
         </View>
         {/* sign in */}
-        <View style={styles.signInWrapper}>
-          <TouchableHighlight
-            style={styles.signIn}
-            onPress={() => {
-              this.updateBackend();
-            }}
-            underlayColor={colors.dark}>
-            <Text style={styles.signInText}>{strings.signIn}</Text>
-          </TouchableHighlight>
-        </View>
+        {signUpButton}
       </KeyboardAvoidingView>
     );
+
+    stageTwo = (
+      <KeyboardAvoidingView style={{flex: 3}} behavior="padding" enabled>
+        {/* firstname */}
+        <View style={styles.firstNameWrapper}>
+          <View style={styles.textInput}>
+            <TextInput
+              placeholder={strings.firstName}
+              style={styles.inputText}
+              onChangeText={text => this.onChangeFirstName(text)}
+            />
+          </View>
+        </View>
+        {/* lastname */}
+        <View style={styles.lastNameWrapper}>
+          <View style={styles.textInput}>
+            <TextInput
+              placeholder={strings.lastName}
+              style={styles.inputText}
+              onChangeText={text => this.onChangeLastName(text)}
+            />
+          </View>
+        </View>
+        {/* location */}
+        <View style={styles.locationWrapper}>
+          <ModalSelector
+            data={pickerItems}
+            initValue={this.state.user.location}
+            onChange={value => {
+              this.onChangeLocation(value.label);
+            }}
+            style={styles.style}
+            selectStyle={styles.selectStyle}
+            selectTextStyle={styles.selectTextStyle}
+            optionTextStyle={styles.optionTextStyle}
+          />
+        </View>
+        {/* sign in */}
+        {signUpButton}
+      </KeyboardAvoidingView>
+    );
+
+    return !this.state.showExtendedDetails ? stageOne : stageTwo;
   }
 }
 
